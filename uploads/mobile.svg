@@ -4,9 +4,9 @@
 	 viewBox="0 0 162.51 200" style="enable-background:new 0 0 162.51 200;" xml:space="preserve">
 <style type="text/css">
 @keyframes phone-float {
-  0%   {transform: translateY(-5px)}
-  50%  {transform: translateY(5px)}
-  100% {transform: translateY(-5px)}
+  0%   {transform: translateY(10px)}
+  50%  {transform: translateY(0px)}
+  100% {transform: translateY(10px)}
 }
 
 	.phone {
