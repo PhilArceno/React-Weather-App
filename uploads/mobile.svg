@@ -12,7 +12,7 @@
 	.phone {
 		animation: phone-float 5s ease infinite;
 	}
-	.st0{fill:#FF0066;}
+	.st0{fill:#78FFD6;}
 	.st1{fill:#3D3235;}
 	.st2{fill:#FFFFFF;}
 	.st3{fill:#FFFFFF;stroke:#3D3235;stroke-width:2.5193;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}

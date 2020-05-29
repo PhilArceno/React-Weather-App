@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import mobile from '../../../uploads/mobile.svg'
+import desktop from '../../../uploads/desktop.svg'
 import waves from '../../../uploads/wave.svg'
 
 const Background = styled.div`
@@ -10,17 +11,25 @@ height:100vh;
 width:100vw;
 top:0;
 right:0;
-background-image: linear-gradient(to bottom right, #8915FF, #6B01D1)
+/* background-color: #EFF3F9; */
+background-image: linear-gradient(to bottom right, #99ECFF, #0AD3FF);
 `
 
 const Container = styled.div`
-width: 95%;
 margin: 0 auto;
-color:white;
-
-@media screen and (min-width: 1080px) {
-    width: 1000px;
-}
+color:#343434;
+position:fixed;
+top:0;
+left:0;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-content:center;
+height:100%;
+width:100%;
+    /* position: absolute;
+    top: 50%;
+    transform: translateY(-50%); */
 `
 
 const TopBar = styled.div`
@@ -32,9 +41,27 @@ const Hero = styled.div`
     grid-template-columns: 1fr 1fr;
     align-items:center;
     gap: 10px;
+    margin:0 auto;
+    width:95%;
+
+@media screen and (min-width: 1080px) {
+    width: 1000px;
+}
+
+@media screen and (min-width: 1200px) {
+    width: 1150px;
+}
 `
 
 const LeftBox = styled.div`
+    > p {
+        padding-left: .1em;
+    }
+@media screen and (min-width: 768px) {
+    > h1 {
+    font-size:2.5em;
+    }
+}
 `
 
 const RightBox = styled.div`
@@ -42,7 +69,9 @@ text-align:end;
 `
 
 const Blob = styled.img`
-max-width:450px;
+@media screen and (max-width: 1080px) {
+    max-width:450px;
+}
 `
 
 const Button = styled.button`
@@ -51,7 +80,7 @@ padding: 1em 3em;
 display:block;
 border: 0;
 border-radius: 5px;
-background-color: #FF0066;
+background-color: #7C00FF;
 color:white;
 cursor: pointer;
 
@@ -75,20 +104,36 @@ z-index:-1;
 `
 
 function HomePage(props) {
+    const widthOutput = document.getElementsByTagName('html')
+    const [device, setDevice] = useState({window: null})
+
+    const reportWindowSize = () => {
+        widthOutput.textContent = window.innerWidth;
+        if (widthOutput.textContent >= 1080) {
+            setDevice({window: desktop})
+        }
+        if (widthOutput.textContent < 1080) {
+            setDevice({window: mobile})
+        }
+      }
+
+    useEffect(() => {
+        reportWindowSize()
+        window.onresize = reportWindowSize;
+    },[])
+
     return (
-        <div>
-            <Background/>
+        <div style={{margin: '0 auto'}}>
+        <Background/>
         <Container>
-            <TopBar>
-                Logo
-            </TopBar>
             <Hero>
                 <LeftBox>
                     <h1>Weather App</h1>
-                    <p>Simple react app designed and developed by Phil-Jonathan Arceno</p>
+                    <p>Simple front-end react app project which fetches a weather API. 
+                        Designed and developed by Phil-Jonathan Arceno.</p>
                 </LeftBox>
                 <RightBox>
-                    <Blob src={mobile}/>   
+                    <Blob src={device.window}/>   
                 </RightBox>
             </Hero>
             <Button>Try it out!</Button>
