@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import mobile from '../../../uploads/mobile.svg'
 import desktop from '../../../uploads/desktop.svg'
 import waves from '../../../uploads/wave.svg'
+import getLocation from './coordinates.js'
 
 const Background = styled.div`
 position:fixed;
@@ -119,6 +120,7 @@ function HomePage(props) {
 
     useEffect(() => {
         reportWindowSize()
+        getLocation()
         window.onresize = reportWindowSize;
     },[])
 
@@ -136,7 +138,7 @@ function HomePage(props) {
                     <Blob src={device.window}/>   
                 </RightBox>
             </Hero>
-            <Button>Try it out!</Button>
+            <Button onClick={() => {props.history.push('/weather')}}>Try it out!</Button>
         </Container>
         <Waves src={waves}/>
         </div>
