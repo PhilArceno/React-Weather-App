@@ -1,17 +1,22 @@
 import React from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import * as Pages from '../pages'
 
 const renderHomePage = routerData => {
-    return <Pages.HomePage/>
+    return <Pages.HomePage history={routerData.history}/>
+}
+
+const renderWeatherApp = routerData => {
+    return <Pages.WeatherApp/>
 }
 
 export default function App(props) {
     return (
         <BrowserRouter>
-            <div>
+            <Switch>
+                <Route exact={true} path="/weather" render={renderWeatherApp}/>
                 <Route exact={true} path="/" render={renderHomePage}/>
-            </div>
+            </Switch>
         </BrowserRouter>
     )
 }

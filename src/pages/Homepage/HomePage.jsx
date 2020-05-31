@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
-import mobile from '../../../uploads/mobile.svg'
-import desktop from '../../../uploads/desktop.svg'
 import waves from '../../../uploads/wave.svg'
 import getLocation from './coordinates.js'
+import checkDevice from '../../hooks/device.js'
 
 const Background = styled.div`
 position:fixed;
@@ -105,23 +104,12 @@ z-index:-1;
 `
 
 function HomePage(props) {
-    const widthOutput = document.getElementsByTagName('html')
-    const [device, setDevice] = useState({window: null})
-
-    const reportWindowSize = () => {
-        widthOutput.textContent = window.innerWidth;
-        if (widthOutput.textContent >= 1080) {
-            setDevice({window: desktop})
-        }
-        if (widthOutput.textContent < 1080) {
-            setDevice({window: mobile})
-        }
-      }
+    const thisDevice = checkDevice()
 
     useEffect(() => {
-        reportWindowSize()
+        thisDevice.reportWindowSize()
         getLocation()
-        window.onresize = reportWindowSize;
+        window.onresize = thisDevice.reportWindowSize;
     },[])
 
     return (
@@ -135,7 +123,7 @@ function HomePage(props) {
                         Designed and developed by Phil-Jonathan Arceno.</p>
                 </LeftBox>
                 <RightBox>
-                    <Blob src={device.window}/>   
+                    <Blob src={thisDevice.device.window}/>   
                 </RightBox>
             </Hero>
             <Button onClick={() => {props.history.push('/weather')}}>Try it out!</Button>
