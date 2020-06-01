@@ -14,8 +14,9 @@ export default function App(props) {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact={true} path="/weather" render={renderWeatherApp}/>
                 <Route exact={true} path="/" render={renderHomePage}/>
+                <Route exact={true} path="/weather" render={renderWeatherApp}/>
+                <Route>{'404'}</Route>
             </Switch>
         </BrowserRouter>
     )

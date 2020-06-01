@@ -1,13 +1,15 @@
 const getLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(getCoordinates, showError);
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
+  return new Promise((res, rej) => {
+    navigator.geolocation.getCurrentPosition(res, showError);
+})
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition(getCoordinates, showError);
+    // } else {
+    //   alert("Geolocation is not supported by this browser.");
+    // }
 }
 
-const getCoordinates = position => {
-    console.log(position)
+function getCoordinates(position) {
 }
 
 const showError = error => {
