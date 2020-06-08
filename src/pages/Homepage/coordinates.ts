@@ -1,4 +1,13 @@
-const getLocation = () => {
+interface Error {
+  code: number,
+  PERMISSION_DENIED: number,
+  POSITION_UNAVAILABLE: number,
+  TIMEOUT: number,
+  UNKNOWN_ERROR: number,
+  message: 'string'
+}
+
+const getLocation = (): Promise<unknown> => {
   return new Promise((res, rej) => {
     navigator.geolocation.getCurrentPosition(res, showError);
 })
@@ -9,10 +18,10 @@ const getLocation = () => {
     // }
 }
 
-function getCoordinates(position) {
+function getCoordinates(): void {
 }
 
-const showError = error => {
+const showError = (error: Error): void => {
     switch(error.code) {
       case error.PERMISSION_DENIED:
         alert("User denied the request for Geolocation.")

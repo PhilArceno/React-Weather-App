@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     entry: {
-        javascript: "./src/index.jsx",
+        javascript: "./src/index.tsx",
         html: "./public/index.html"
     },
     output: { //where we want all our bundled code to go
@@ -12,13 +12,11 @@ module.exports = {
     },
     module: { //specify loader
         rules: [
-            {
-                test: /\.(js|jsx)$/, //looks for anything thats a .js or .jsx
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader'
-                }
-            },
+          {
+            test: /\.tsx?$/,
+            use: 'ts-loader',
+            exclude: '/node_modules/',
+          },
             {
                 test: /\.html$/,
                 use: [{
@@ -40,6 +38,9 @@ module.exports = {
                 }]
               }
         ]
+    },
+    resolve: {
+      extensions: [ '.tsx', '.ts', '.js', '.jsx' ],
     },
     plugins: [
         new HtmlWebpackPlugin({

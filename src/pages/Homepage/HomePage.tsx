@@ -1,10 +1,25 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch} from 'react-redux'
 import styled from 'styled-components'
-import waves from '../../../uploads/wave.svg'
-import getLocation from './coordinates.js'
-import checkDevice from '../../hooks/device.js'
+import getLocation from './coordinates'
+import checkDevice from '../../hooks/device'
+import waves from "../../../uploads/wave.svg"
 
+interface Props {
+    history: {
+        location: {
+            pathname: string
+        }
+        push: Function
+    }
+}
+
+interface geoLocation {
+    coords: {
+        latitude: number,
+        longtitude: number
+    }
+}
 
 const Background = styled.div`
 position:fixed;
@@ -105,13 +120,13 @@ left: 0;
 z-index:-1;
 `
 
-function HomePage(props) {
+function HomePage(props: Props): JSX.Element {
     const thisDevice = checkDevice()
     const dispatch = useDispatch()
 
     useEffect(() => {
         thisDevice.reportWindowSize()
-        getLocation().then(geoLocation => {
+        getLocation().then((geoLocation: geoLocation):void => {
             dispatch({type: "SET-POSITION", content: geoLocation.coords})
         })
         window.onresize = thisDevice.reportWindowSize;

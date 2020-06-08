@@ -2,17 +2,22 @@ import {useState, useEffect} from 'react'
 import mobile from '../../uploads/mobile.svg'
 import desktop from '../../uploads/desktop.svg'
 
+interface retVal {
+  device: {
+    window: string
+  },
+  reportWindowSize: () => void
+}
 
-export default function checkDevice() {
-    const widthOutput = document.getElementsByTagName('html')
+export default function checkDevice(): retVal {
     const [device, setDevice] = useState({window: null})
 
-    const reportWindowSize = () => {
-        widthOutput.textContent = window.innerWidth;
-        if (widthOutput.textContent >= 1080) {
+    const reportWindowSize = ():void => {
+        let thisWindow = window.innerWidth;
+        if (thisWindow >= 1080) {
             setDevice({window: desktop})
         }
-        if (widthOutput.textContent < 1080) {
+        if (thisWindow < 1080) {
             setDevice({window: mobile})
         }
       }
