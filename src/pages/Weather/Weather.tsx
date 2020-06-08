@@ -1,11 +1,19 @@
 import React, { useEffect } from 'react'
 import {useSelector} from 'react-redux'
 
-function WeatherApp(props) {
-    const position = useSelector(state => state.position)
+interface State {
+    position: {
+        longtitude: number,
+        latitude: number
+    }
+}
+
+function WeatherApp(): JSX.Element {
+    const position = useSelector((state: State) => state.position)
 
     useEffect(() => {
     },[])
+
     return (
         <div>
             weather

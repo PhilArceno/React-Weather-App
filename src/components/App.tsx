@@ -6,16 +6,16 @@ const renderHomePage = (routerData: RouteComponentProps): JSX.Element => {
     return <Pages.HomePage history={routerData.history}/>
 }
 
-// const renderWeatherApp = (routerData: RouteComponentProps): JSX.Element => {
-//     return <Pages.WeatherApp/>
-// }
+const renderWeatherApp = (routerData: RouteComponentProps): JSX.Element => {
+    return <Pages.WeatherApp/>
+}
 
 export default function App(): JSX.Element {
     return (
         <BrowserRouter>
             <Switch>
                 <Route exact={true} path="/" render={renderHomePage}/>
-                {/* <Route exact={true} path="/weather" render={renderWeatherApp}/> */}
+                <Route exact={true} path="/weather" render={renderWeatherApp}/>
                 <Route>{'404'}</Route>
             </Switch>
         </BrowserRouter>

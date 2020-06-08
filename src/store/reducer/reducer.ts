@@ -1,8 +1,18 @@
-const initialState = {
-    position: undefined
+interface globalState {
+    position: object
 }
 
-function reducer(state = initialState, action) {
+interface Action {
+    type: string,
+    content: object | number
+}
+const initialState = {
+    position: {}
+}
+
+
+
+function reducer(state = initialState, action: Action) {
     switch(action.type){
         case "SET-POSITION":
             console.log(action.content)
