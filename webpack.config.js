@@ -1,15 +1,19 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+module.exports = function(env, argv) {
 
-module.exports = {
+const base = {
     entry: {
-        javascript: "./src/index.tsx",
-        html: "./public/index.html"
+        javascript: "./server/server.ts"
+      },
+        output: {
+      filename: 'js/server.js',
+      // path needs to be an ABSOLUTE file path
+      path: path.resolve(process.cwd(), 'build'),
+      publicPath: '/',
     },
-    output: { //where we want all our bundled code to go
-        path: path.join(__dirname, 'build')
-    },
+    devtool: 'cheap-module-eval-source-map',
     module: { //specify loader
         rules: [
           {
@@ -42,10 +46,24 @@ module.exports = {
     resolve: {
       extensions: [ '.tsx', '.ts', '.js', '.jsx' ],
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: './public/index.html',
-            filename: "./index.html"
-        })
-    ]
+    // plugins: [
+    //     new HtmlWebpackPlugin({
+    //         template: './public/index.html',
+    //         filename: "./index.html"
+    //     })
+    // ]
+}
+
+  // server-specific configuration
+  if (env.platform === 'server') {
+    base.target = 'node';
+  }
+
+  // client-specific configurations
+  if (env.platform === 'web') {
+    base.entry = './src/index.tsx';
+    base.output.filename = 'js/client.js';
+  }
+
+  return base
 }
